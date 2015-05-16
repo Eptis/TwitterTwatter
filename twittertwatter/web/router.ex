@@ -1,11 +1,15 @@
 defmodule Twittertwatter.Router do
   use Twittertwatter.Web, :router
 
+  socket "/ws", Twittertwatter do
+    channel "rooms:*", RoomChannel
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
   end
 
   pipeline :api do
@@ -15,8 +19,11 @@ defmodule Twittertwatter.Router do
   scope "/", Twittertwatter do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/",    RoomsController, :show
+    get "/:id", RoomsController, :show
   end
+
+
 
   # Other scopes may use custom stacks.
   # scope "/api", Twittertwatter do

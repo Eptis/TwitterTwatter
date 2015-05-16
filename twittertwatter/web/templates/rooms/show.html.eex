@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Rooms</h2>
+    <ul id="rooms">
+    </ul>
+  </div>
+  <div class="col-sm-8">
+    <h1><%= @room_id %></h1>
+    <div id="messages">
+
+    </div>
+
+    <div id="chatline">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-4">
+              <label>username</label>
+              <input type="text" name="user" id="username-input" placholder="User name" class="form-control"/>
+            </div>
+            <div class="col-sm-7">
+              <label>message body</label>
+              <input type="text" name="body" id="chat-input" placholder="Message" class="form-control"/>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

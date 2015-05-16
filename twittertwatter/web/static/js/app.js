@@ -1,11 +1,23 @@
 import {Socket} from "phoenix"
 
-// let socket = new Socket("/ws")
-// socket.connect()
-// socket.join("topic:subtopic", {}).receive("ok", chan => {
-// })
+let userInput         = $("#username-input")
+let chatInput         = $("#chat-input")
+let messagesContainer = $("#messages")
 
-let App = {
-}
+let socket = new Socket("/ws")
+socket.connect()
+socket.join("rooms:lobby", {}).receive("ok", chan => {
+  console.log("Welcome to Phoenix Chat!")
 
-export default App
+  chatInput.off("keypress").on("keypress", event => {
+    if(event.keyCode === 13){
+      chan.push("new_msg", {user: userInput.val(), body: chatInput.val()})
+      chatInput.val("")
+    }
+  })
+
+  chan.on("new_msg", payload => {
+    console.log(payload);
+    messagesContainer.append(`<br/>[${payload.user}] ${payload.body}`)
+  })
+})
